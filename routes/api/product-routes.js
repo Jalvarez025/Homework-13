@@ -12,29 +12,60 @@ router.get('/', async (req, res) => {
   //   res.json(bookData);
   // });
 
-    // // Store the bookData in a variable once the promise is resolved.
-    // const bookData = await Book.findAll();
+  // const productData = await Product.findAll();
+  // return res.json(productData);
 
-    // // Return the bookData promise inside of the JSON response
-    // return res.json(bookData);
+  // try {
+  //   const userData = await User.findAll();
+  //   res.status(200).json(userData);
+  // } catch (err) {
+  //   res.status(500).json(err);
+  // }
 
-  const productData = await Product.findAll();
-  return res.json(productData);
+  try {
+    const productData = await Product.findAll();
+    res.status(200).json(productData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 
 });
 
 // get one product
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
 
   // Book.findByPk(req.params.id).then((bookData) => {
   //   res.json(bookData);
   // });
+  
 
-  Product.findByPk(req.params.id).then((productData) => {
-      res.json(productData);
-    });
+  // Product.findByPk(req.params.id).then((productData) => {
+  //     res.json(productData);
+  //   });
+
+  // try {
+  //   const userData = await User.findByPk(req.params.id);
+  //   if (!userData) {
+  //     res.status(404).json({ message: 'No user with this id!' });
+  //     return;
+  //   }
+  //   res.status(200).json(userData);
+  // } catch (err) {
+  //   res.status(500).json(err);
+  // }
+
+  try {
+    const productData = await Product.findByPk(req.params.id);
+    if (!productData) {
+      res.status(404).json({ message: 'No user with this id!' });
+      return;
+    }
+    res.status(200).json(productData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 
 });
 
@@ -112,7 +143,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
 
 //   Book.destroy({
@@ -125,15 +156,45 @@ router.delete('/:id', (req, res) => {
 //     })
 //     .catch((err) => res.json(err));
 
-Product.destroy({
-  where: {
-    id: req.params.id,
-  },
-})
-  .then((deletedProduct) => {
-    res.json(deletedProduct);
-  })
-  .catch((err) => res.json(err));
+// Product.destroy({
+//   where: {
+//     id: req.params.id,
+//   },
+// })
+//   .then((deletedProduct) => {
+//     res.json(deletedProduct);
+//   })
+//   .catch((err) => res.json(err));
+
+// try {
+//   const userData = await User.destroy({
+//     where: {
+//       id: req.params.id,
+//     },
+//   });
+//   if (!userData) {
+//     res.status(404).json({ message: 'No user with this id!' });
+//     return;
+//   }
+//   res.status(200).json(userData);
+// } catch (err) {
+//   res.status(500).json(err);
+// }
+
+try {
+  const productData = await Product.destroy({
+    where: {
+      id: req.params.id,
+    },
+  });
+  if (!productData) {
+    res.status(404).json({ message: 'No user with this id!' });
+    return;
+  }
+  res.status(200).json(productData);
+} catch (err) {
+  res.status(500).json(err);
+}
 
 });
 
