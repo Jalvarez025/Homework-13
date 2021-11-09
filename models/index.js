@@ -44,6 +44,7 @@ Product.belongsToMany(Tag, {
     model: ProductTag,
     unique: false
   },
+  foreignKey: 'product_id',
   // Define an alias for when data is retrieved
   as: 'tagged_products'
 });
