@@ -46,7 +46,7 @@ Product.belongsToMany(Tag, {
   },
   foreignKey: 'product_id',
   // Define an alias for when data is retrieved
-  as: 'tagged_products'
+  as: 'tags'
 });
 
 // Tags belongToMany Products (through ProductTag)
